@@ -1,25 +1,25 @@
 #  Task 1
 - Find the names of suppliers who supply some red part. 
 ```
-SELECT S.sname
+SELECT distinct(S.sname)
 FROM Suppliers AS S, Parts AS P, Catalog AS C
 WHERE C.sid=S.sid and P.pid=C.pid and P.color='Red';
 ```
-![image](https://user-images.githubusercontent.com/54617201/161285672-a99b4fcc-1171-4728-96aa-a74f5793e158.png)
+![image](https://user-images.githubusercontent.com/54617201/161287686-ffb434c9-772c-4098-9311-f08b02919451.png)
 
 - Find the sids of suppliers who supply some red or green part. 
 ```
-SELECT S.sid
+SELECT distinct(S.sid)
 FROM Suppliers AS S, Parts AS P, Catalog AS C
 WHERE C.sid=S.sid and P.pid=C.pid and (P.color='Red' or P.color='Green');
 ```
-![image](https://user-images.githubusercontent.com/54617201/161285956-1dfbabdf-28f7-49d7-a8da-e0e21d00b028.png)
+![image](https://user-images.githubusercontent.com/54617201/161287605-d5139dd7-6a09-47ff-9df4-24d55ada0155.png)
 
 - Find the sids of suppliers who supply some red part or are at 221 Packer Street. 
 ```
-SELECT S.sid
+SELECT distinct(S.sid)
 FROM Suppliers AS S, Parts AS P, Catalog AS C
 WHERE C.sid=S.sid and P.pid=C.pid and (P.color='Red' or S.address='221 Packer Street');
 ```
-![image](https://user-images.githubusercontent.com/54617201/161286325-1af92adb-d7a7-4380-b00e-04902654f293.png)
+![image](https://user-images.githubusercontent.com/54617201/161287515-20fa37a6-e729-4b26-ac44-1cf743b6cba7.png)
 
