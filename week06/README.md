@@ -92,4 +92,8 @@ group by c.sid
 ![image](https://user-images.githubusercontent.com/54617201/161296867-fb8e203f-4190-45aa-aad1-d7424f801c18.png)
 
 # Task 2
-1 - 𝐴𝑢𝑡ℎ𝑜𝑟 ⋈_𝑎𝑢𝑡ℎ𝑜𝑟\_𝑖𝑑=𝑒𝑑𝑖𝑡𝑜𝑟 Book
+1 - Author ⋈ (author_id=editor) Book
+
+2 - Пauthor_id(Author) − Πeditor(Book)
+
+3 - Пfirst_name,last_name((Пauthor_id(Author) − Πeditor(Book)) ⋈ Author)
