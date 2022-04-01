@@ -14,3 +14,12 @@ FROM Suppliers AS S, Parts AS P, Catalog AS C
 WHERE C.sid=S.sid and P.pid=C.pid and (P.color='Red' or P.color='Green');
 ```
 ![image](https://user-images.githubusercontent.com/54617201/161285956-1dfbabdf-28f7-49d7-a8da-e0e21d00b028.png)
+
+- Find the sids of suppliers who supply some red part or are at 221 Packer Street. 
+```
+SELECT S.sid
+FROM Suppliers AS S, Parts AS P, Catalog AS C
+WHERE C.sid=S.sid and P.pid=C.pid and (P.color='Red' or S.address='221 Packer Street');
+```
+![image](https://user-images.githubusercontent.com/54617201/161286325-1af92adb-d7a7-4380-b00e-04902654f293.png)
+
