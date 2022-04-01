@@ -67,3 +67,17 @@ from Catalog as c1, Catalog as c2
 where c1.sid!=c2.sid and c1.pid=c2.pid
 ```
 ![image](https://user-images.githubusercontent.com/54617201/161291352-cff349f2-e4a1-4345-b88f-8462d85f7ae8.png)
+
+8 - find the average cost of the red parts and green parts for each of the suppliers
+```
+select c.sid, count(sid), avg(cost), p.color
+from Catalog as c, Parts as p
+where c.pid=p.pid and p.color='Red'
+group by c.sid, p.color
+union
+select c.sid, count(sid), avg(cost), p.color
+from Catalog as c, Parts as p
+where c.pid=p.pid and p.color='Green'
+group by c.sid, p.color
+```
+![image](https://user-images.githubusercontent.com/54617201/161296113-cb3bb805-b112-4e35-9f69-73893a5c2017.png)
