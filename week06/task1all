@@ -1,0 +1,106 @@
+-- CREATE TABLE Suppliers (
+-- 	sid int PRIMARY KEY,
+-- 	sname VARCHAR(45) NOT NULL,
+-- 	address VARCHAR(100) NOT NULL
+-- )
+
+-- INSERT INTO Suppliers (sid, sname, address)
+-- VALUES (1, 'Yosemite Sham', 'Devil’s canyon, AZ'),
+-- 	   (2, 'Wiley E. Coyote', 'RR Asylum, NV'),
+-- 	   (3, 'Elmer Fudd', 'Carrot Patch, MN')
+
+-- CREATE TABLE Parts (
+-- 	pid int PRIMARY KEY,
+-- 	pname VARCHAR(45) NOT NULL,
+-- 	color VARCHAR(100) NOT NULL
+-- );
+
+-- INSERT INTO Parts (pid, pname, color)
+-- VALUES (1, 'Red1', 'Red'),
+-- 		(2, 'Red2', 'Red'),
+-- 		(3, 'Green1', 'Green'),
+-- 		(4, 'Blue1', 'Blue'),
+-- 		(5, 'Red3', 'Red');
+
+-- CREATE TABLE Catalog (
+-- 	sid int,
+-- 	pid int,
+-- 	cost real NOT NULL,
+-- 	CONSTRAINT fk_catalogS FOREIGN KEY(sid) REFERENCES Suppliers(sid),
+-- 	CONSTRAINT fk_catalogP FOREIGN KEY(pid) REFERENCES Parts(pid)
+-- );
+
+-- INSERT INTO Catalog(sid, pid, cost)
+-- VALUES (1, 1, 10.00),
+--      (1, 2, 20.00),
+--      (1, 3, 30.00),
+--      (1, 4, 40.00),
+--      (1, 5, 50.00),
+--      (2, 1, 9.00),
+--      (2, 3, 34.00),
+--      (2, 5, 48.00)
+
+
+
+-- SELECT distinct(S.sname)
+-- FROM Suppliers AS S, Parts AS P, Catalog AS C
+-- WHERE C.sid=S.sid and P.pid=C.pid and P.color='Red';
+
+-- SELECT distinct(S.sid)
+-- FROM Suppliers AS S, Parts AS P, Catalog AS C
+-- WHERE C.sid=S.sid and P.pid=C.pid and (P.color='Red' or P.color='Green');
+
+-- SELECT distinct(S.sid)
+-- FROM Suppliers AS S, Parts AS P, Catalog AS C
+-- WHERE C.sid=S.sid and P.pid=C.pid and (P.color='Red' or S.address='221 Packer Street');
+
+-- SELECT * FROM R 
+-- WHERE x not in ( SELECT x FROM (
+-- (SELECT x , y FROM (select y from S ) as p cross join 
+-- (select distinct x from R) as sp)
+-- EXCEPT
+-- (SELECT x , y FROM R) ) AS r ); 
+
+-- SELECT sid FROM Suppliers  
+-- WHERE sid not in ( SELECT sid FROM (
+-- (SELECT sid , pid FROM (select pid from Parts WHERE color = 'Red') as p cross join 
+-- (select distinct sid from Suppliers) as sp)
+-- EXCEPT
+-- (SELECT sid , pid FROM Catalog) ) AS r )
+-- or sid in ( select sid from Catalog where pid in 
+-- 		   (select pid from Parts where Color='Green'));
+
+-- SELECT sid FROM Suppliers  
+-- WHERE sid not in ( SELECT sid FROM (
+-- (SELECT sid , pid FROM (select pid from Parts WHERE color = 'Red') as p cross join 
+-- (select distinct sid from Suppliers) as sp)
+-- EXCEPT
+-- (SELECT sid , pid FROM Catalog) ) AS r )
+-- or sid not in ( SELECT sid FROM (
+-- (SELECT sid , pid FROM (select pid from Parts WHERE color = 'Green') as p cross join 
+-- (select distinct sid from Suppliers) as sp)
+-- EXCEPT
+-- (SELECT sid , pid FROM Catalog) ) AS r )
+
+-- select distinct(c1.sid, c2.sid )
+-- from Catalog as c1, Catalog as c2
+-- where c1.cost>c2.cost and c1.pid=c2.pid
+
+-- select distinct(c1.pid)
+-- from Catalog as c1, Catalog as c2
+-- where c1.sid!=c2.sid and c1.pid=c2.pid
+
+-- select c.sid, count(sid), avg(cost), p.color
+-- from Catalog as c, Parts as p
+-- where c.pid=p.pid and p.color='Red'
+-- group by c.sid, p.color
+-- union
+-- select c.sid, count(sid), avg(cost), p.color
+-- from Catalog as c, Parts as p
+-- where c.pid=p.pid and p.color='Green'
+-- group by c.sid, p.color
+
+	-- select c.sid, max(cost)
+	-- from Catalog as c
+	-- where c.cost>=50
+	-- group by c.sid
