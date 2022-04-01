@@ -1,0 +1,91 @@
+-- CREATE TABLE Author (
+-- 	author_id int PRIMARY KEY,
+-- 	first_name VARCHAR(45) NOT NULL,
+-- 	last_name VARCHAR(45) NOT NULL
+-- );
+
+-- INSERT INTO Author (author_id, first_name, last_name)
+-- VALUES (1, 'John', 'McCarthy'),
+-- (2, 'Dennis', 'Ritchie'),
+-- (3, 'Ken', 'Thompson'),
+-- (4, 'Claude', 'Shannon'),
+-- (5, 'Alan', 'Turing'),
+-- (6, 'Alonzo', 'Church'),
+-- (7, 'Perry', 'White'),
+-- (8, 'Moshe', 'Vardi'),
+-- (9, 'Roy', 'Batty')
+
+-- CREATE TABLE Book (
+-- 	book_id int PRIMARY KEY,
+-- 	book_title VARCHAR(45) NOT NULL,
+-- 	month VARCHAR(45),
+-- 	year int,
+-- 	editor int
+-- );
+
+-- INSERT INTO Book (book_id, book_title, month, year, editor)
+-- VALUES 
+-- (1, 'CACM', 'April', 1960, 8),
+-- (2, 'CACM', 'July', 1974, 8),
+-- (3, 'BTS', 'July', 1948, 2),
+-- (4, 'MLS', 'November', 1936, 7),
+-- (5, 'Mind', 'October', 1950, NULL),
+-- (6, 'AMS', 'Month', 1941, NULL),
+-- (7, 'AAAI', 'July', 2012, 9),
+-- (8, 'NIPS', 'July', 2012, 9)
+
+-- CREATE TABLE Pub (
+-- 	pub_id int PRIMARY KEY,
+-- 	title VARCHAR(45) NOT NULL,
+-- 	book_id int,
+-- 	CONSTRAINT fk_pub FOREIGN KEY(book_id) REFERENCES Book(book_id)
+-- );
+
+-- INSERT INTO Pub (pub_id, title, book_id)
+-- VALUES 
+-- (1, 'LISP' ,1),
+-- (2, 'Unix' ,2),
+-- (3, 'Info Theory' ,3),
+-- (4, 'Turing Machines' ,4),
+-- (5, 'Turing Test' ,5),
+-- (6, 'Lambda Calculus' ,6)
+
+-- CREATE TABLE Author_pub (
+-- 	author_id int,
+-- 	pub_id int,
+-- 	author_position int,
+-- 	CONSTRAINT fk_Author_pubA FOREIGN KEY(author_id) REFERENCES Author(author_id),
+-- 	CONSTRAINT fk_Author_pubP FOREIGN KEY(pub_id) REFERENCES Pub(pub_id)
+-- );
+
+-- INSERT INTO Author_pub (author_id, pub_id, author_position)
+-- VALUES 
+-- (1, 1, 1),
+-- (2, 2, 1),
+-- (3, 2, 2),
+-- (4, 3, 1),
+-- (5, 4, 1),
+-- (5, 5, 1),
+-- (6, 6, 1)
+
+-- select *
+-- from author, book
+-- where author_id=editor
+
+-- select author_id
+-- from author
+-- where author_id not in (select author_id from author,book where author_id=editor)
+
+-- select author_id 
+-- from author 
+-- where author_id not in (
+-- select author_id
+-- from book
+-- cross join author)
+
+-- select first_name, last_name 
+-- from (select author_id from author where author_id not in (select author_id from author,book where author_id=editor)) as r
+-- natural join author
+
+
+
