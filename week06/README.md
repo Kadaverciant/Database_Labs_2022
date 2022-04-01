@@ -35,3 +35,19 @@ or sid in ( select sid from Catalog where pid in
 		   (select pid from Parts where Color='Green'));
 ```
 ![image](https://user-images.githubusercontent.com/54617201/161287998-c2d86682-1e70-4dec-ac8d-c7d230c26c30.png)
+
+- Find the sids of suppliers who supply every red part or supply every green part. 
+```
+SELECT sid FROM Suppliers  
+WHERE sid not in ( SELECT sid FROM (
+(SELECT sid , pid FROM (select pid from Parts WHERE color = 'Red') as p cross join 
+(select distinct sid from Suppliers) as sp)
+EXCEPT
+(SELECT sid , pid FROM Catalog) ) AS r )
+or sid not in ( SELECT sid FROM (
+(SELECT sid , pid FROM (select pid from Parts WHERE color = 'Green') as p cross join 
+(select distinct sid from Suppliers) as sp)
+EXCEPT
+(SELECT sid , pid FROM Catalog) ) AS r )
+```
+![image](https://user-images.githubusercontent.com/54617201/161289016-007d8f93-34ee-40da-92b1-f9ed00c69fff.png)
