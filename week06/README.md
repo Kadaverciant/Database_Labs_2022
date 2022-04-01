@@ -81,3 +81,12 @@ where c.pid=p.pid and p.color='Green'
 group by c.sid, p.color
 ```
 ![image](https://user-images.githubusercontent.com/54617201/161296113-cb3bb805-b112-4e35-9f69-73893a5c2017.png)
+
+9 - find the sids of suppliers whose most expensive part costs $50 or more
+```
+select c.sid, max(cost)
+from Catalog as c
+where c.cost>=50
+group by c.sid
+```
+![image](https://user-images.githubusercontent.com/54617201/161296867-fb8e203f-4190-45aa-aad1-d7424f801c18.png)
