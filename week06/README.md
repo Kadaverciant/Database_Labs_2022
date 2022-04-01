@@ -93,7 +93,26 @@ group by c.sid
 
 # Task 2
 1 - Author ⋈ (author_id=editor) Book
+```
+select *
+from author, book
+where author_id=editor
+```
+![image](https://user-images.githubusercontent.com/54617201/161316261-74c50e16-cb31-412c-bf69-3a2f5205afae.png)
 
 2 - Пauthor_id(Author) − Πeditor(Book)
+```
+select author_id
+from author
+where author_id not in (select author_id from author,book where author_id=editor)
+```
+![image](https://user-images.githubusercontent.com/54617201/161316045-c28c4123-4ea0-4636-8da1-bf41f070b8cd.png)
 
-3 - Пfirst_name,last_name((Пauthor_id(Author) − Πeditor(Book)) ⋈ Author)
+3 - Пfirst_name,last_name( (Пauthor_id(Author) − Πeditor(Book)) ⋈ Author)
+```
+select first_name, last_name 
+from (select author_id from author where author_id not in (select author_id from author,book where author_id=editor)) as r
+natural join author
+```
+![image](https://user-images.githubusercontent.com/54617201/161315680-5b6beba0-6f7c-45f4-80f3-7d020db4aa09.png)
+
