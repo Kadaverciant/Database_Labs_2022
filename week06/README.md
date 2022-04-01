@@ -90,3 +90,6 @@ where c.cost>=50
 group by c.sid
 ```
 ![image](https://user-images.githubusercontent.com/54617201/161296867-fb8e203f-4190-45aa-aad1-d7424f801c18.png)
+
+# Task 2
+1 - 𝐴𝑢𝑡ℎ𝑜𝑟 ⋈𝑎𝑢𝑡ℎ𝑜𝑟𝑖𝑑=𝑒𝑑𝑖𝑡𝑜𝑟 𝐵𝑜𝑜�
