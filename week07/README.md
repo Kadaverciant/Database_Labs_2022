@@ -83,7 +83,7 @@ Part 1:
 
 Part 2:
 
-![image](https://user-images.githubusercontent.com/54617201/161566677-285affef-f93d-458f-a120-a68180b259b5.png)
+![image](https://user-images.githubusercontent.com/54617201/161599206-a074401b-5c61-4987-8312-7d7a47781f7d.png)
 ```
 create table Books (
 	book varchar(100) primary key,
@@ -147,11 +147,12 @@ where s.teacher = c.teacher and b.book=c.book
 group by school, b.publisher
 order by school;
 
-select school, max(loandate), c.teacher 
-from Classes as c, Schools as s
-where s.teacher = c.teacher
-group by school, c.teacher
-order by school, max(loandate) Desc limit 2;
+select s.school, c.book, c.teacher, maxDate.maxD
+from (select s.school, max(c.loandate) as maxD
+	 from Classes as c join Schools as s on c.teacher=s.teacher
+	 group by s.school) as maxDate, Classes as c, Schools as s
+where c.teacher=s.teacher and s.school=maxDate.school
+      and c.loandate=maxDate.maxD;
 
 
 
