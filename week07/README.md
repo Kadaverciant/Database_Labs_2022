@@ -1,7 +1,11 @@
 # Task 1
 Part 1:
+
 ![image](https://user-images.githubusercontent.com/54617201/161531564-cb579384-3038-421a-a549-796aac68fa70.png)
+
+
 Part 2:
+
 ![image](https://user-images.githubusercontent.com/54617201/161539061-6d718a4e-3757-43ca-bc79-1129fc227435.png)
 ```
 create table Customers (
@@ -72,8 +76,14 @@ where O.orderId=p.orderId and O.customerId = C. CustomerId;
 ```
 
 # Task 2
-Part 1:![image](https://user-images.githubusercontent.com/54617201/161566615-7143d1d8-9ca9-4441-a9f5-a96de1f311d8.png)
-Part 2:![image](https://user-images.githubusercontent.com/54617201/161566677-285affef-f93d-458f-a120-a68180b259b5.png)
+Part 1:
+
+![image](https://user-images.githubusercontent.com/54617201/161566615-7143d1d8-9ca9-4441-a9f5-a96de1f311d8.png)
+
+
+Part 2:
+
+![image](https://user-images.githubusercontent.com/54617201/161566677-285affef-f93d-458f-a120-a68180b259b5.png)
 ```
 create table Books (
 	book varchar(100) primary key,
