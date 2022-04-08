@@ -86,3 +86,5 @@ where a.city_id=c.city_id
 ![image](https://user-images.githubusercontent.com/54617201/162475424-abb5e933-7195-47be-9abe-82c4405a93b0.png)
 
 ![image](https://user-images.githubusercontent.com/54617201/162476715-c3f2aa2b-340c-4a19-9187-9d5df6557a42.png)
+
+Conclusion: As we can see, joining operations between tables are the most expensive, in order to reduce costs, it is best to reduce the number of columns in the derived table.
