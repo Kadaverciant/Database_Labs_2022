@@ -53,7 +53,7 @@ from film as f, inventory as i, rental as r
 where f.film_id = i.film_id and i.inventory_id = r.inventory_id)) as unrented 
 where f.film_id=unrented.film_id and (rating = 'R' or rating = 'PG-13') and 
 f.film_id=fc.film_id and fc.category_id = c.category_id and (c.name='Horror' or 
-															 c.name='Sci-Fi')
+c.name='Sci-Fi')
 ```
 ![image](https://user-images.githubusercontent.com/54617201/162475507-2e77f568-b783-4ac8-bf34-d6f93ce07daf.png)
 
