@@ -23,7 +23,10 @@ before:
 explain analyze select id from customer where id = 13 or id = 5675 or id = 177013
 ```
 before:
+
 ![image](https://user-images.githubusercontent.com/54617201/162434550-05f19c52-edd0-459c-8968-09de73ca24fd.png)
+
 after creating hash index for id:
+
 ![image](https://user-images.githubusercontent.com/54617201/162435326-28eb1cd0-981b-48cf-be64-acd51d218ebb.png)
 
