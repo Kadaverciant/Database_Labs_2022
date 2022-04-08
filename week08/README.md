@@ -16,7 +16,11 @@ after creating btree index for name:
 explain analyze select review from customer where length(review) < 25
 ```
 before:
+
 ![image](https://user-images.githubusercontent.com/54617201/162434392-d52eac6a-71b5-43c3-ae3b-60139621d7e9.png)
+
+after creating btree index for review:
+![image](https://user-images.githubusercontent.com/54617201/162436993-7bf20d51-7034-483d-ac33-f7f1c8ace7bd.png)
 
 3rd query 
 ```
