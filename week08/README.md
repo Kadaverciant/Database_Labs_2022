@@ -4,12 +4,14 @@
 explain analyze select name from customer where name = 'Amy Cox'
 ```
 before:
+
 ![image](https://user-images.githubusercontent.com/54617201/162440389-4671ce19-f233-4580-a169-a2d8fbd0301f.png)
 
 after creating btree index for name:
+
 ![image](https://user-images.githubusercontent.com/54617201/162441022-6a3fe2ba-b085-413c-9cb7-7cafe402df39.png)
 
-Conclusion: As we can see, after creating an index cost decreased and time increased.
+Conclusion: As we can see, after creating an index cost and time decreased.
 
 ## 2nd query
 ```
