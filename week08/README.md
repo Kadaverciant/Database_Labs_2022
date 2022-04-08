@@ -1,5 +1,5 @@
 # Task 1
-1st query 
+## 1st query 
 ```
 explain analyze select name from customer where name like 'Amy%'
 ```
@@ -11,7 +11,7 @@ after creating btree index for name:
 
 ![image](https://user-images.githubusercontent.com/54617201/162436083-6a07e0aa-382c-4c6b-89a2-031ad076d434.png)
 
-2nd query
+## 2nd query
 ```
 explain analyze select review from customer where length(review) < 25
 ```
@@ -22,7 +22,7 @@ before:
 after creating btree index for review:
 ![image](https://user-images.githubusercontent.com/54617201/162436993-7bf20d51-7034-483d-ac33-f7f1c8ace7bd.png)
 
-3rd query 
+## 3rd query 
 ```
 explain analyze select id from customer where id = 13 or id = 5675 or id = 177013
 ```
