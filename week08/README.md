@@ -1,15 +1,13 @@
 # Task 1
-## 1st query 
+## 1st query
 ```
-explain analyze select name from customer where name like 'Amy%'
+explain analyze select name from customer where name = 'Amy Cox'
 ```
 before:
-
-![image](https://user-images.githubusercontent.com/54617201/162434062-a3f717b4-f596-4844-8d47-33c1471db077.png)
+![image](https://user-images.githubusercontent.com/54617201/162440389-4671ce19-f233-4580-a169-a2d8fbd0301f.png)
 
 after creating btree index for name:
-
-![image](https://user-images.githubusercontent.com/54617201/162436083-6a07e0aa-382c-4c6b-89a2-031ad076d434.png)
+![image](https://user-images.githubusercontent.com/54617201/162441022-6a3fe2ba-b085-413c-9cb7-7cafe402df39.png)
 
 Conclusion: As we can see, after creating an index cost decreased and time increased.
 
