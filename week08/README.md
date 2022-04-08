@@ -11,7 +11,7 @@ after creating btree index for name:
 
 ![image](https://user-images.githubusercontent.com/54617201/162441022-6a3fe2ba-b085-413c-9cb7-7cafe402df39.png)
 
-Conclusion: As we can see, after creating an index cost and time decreased.
+Conclusion: As we can see, after creating an index, cost and time decreased.
 
 ## 2nd query
 ```
@@ -24,7 +24,7 @@ before:
 after creating btree index for review:
 ![image](https://user-images.githubusercontent.com/54617201/162436993-7bf20d51-7034-483d-ac33-f7f1c8ace7bd.png)
 
-Conclusion: As we can see, after creating an index nothing changed. That's ok, since btree can't influence on length function.
+Conclusion: As we can see, after creating an index, nothing changed. That's ok, since btree can't influence on length function.
 
 ## 3rd query 
 ```
@@ -38,4 +38,4 @@ after creating hash index for id:
 
 ![image](https://user-images.githubusercontent.com/54617201/162435326-28eb1cd0-981b-48cf-be64-acd51d218ebb.png)
 
-Conclusion: As we can see, after creating an index cost decreased and time decreased.
+Conclusion: As we can see, after creating an index, cost and time decreased.
