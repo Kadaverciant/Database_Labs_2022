@@ -4,7 +4,12 @@
 explain analyze select name from customer where name like 'Amy%'
 ```
 before:
+
 ![image](https://user-images.githubusercontent.com/54617201/162434062-a3f717b4-f596-4844-8d47-33c1471db077.png)
+
+after creating btree index for name:
+
+![image](https://user-images.githubusercontent.com/54617201/162436083-6a07e0aa-382c-4c6b-89a2-031ad076d434.png)
 
 2nd query
 ```
