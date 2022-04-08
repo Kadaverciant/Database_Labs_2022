@@ -57,6 +57,7 @@ c.name='Sci-Fi')
 ```
 ![image](https://user-images.githubusercontent.com/54617201/162475507-2e77f568-b783-4ac8-bf34-d6f93ce07daf.png)
 
+![image](https://user-images.githubusercontent.com/54617201/162476308-dd816955-2c11-4b51-9e8c-836490d7ed80.png)
 
 ## 2nd query
 ```
@@ -83,3 +84,5 @@ where a.city_id=c.city_id
 ) as st on a.address_id = st.address_id
 ```
 ![image](https://user-images.githubusercontent.com/54617201/162475424-abb5e933-7195-47be-9abe-82c4405a93b0.png)
+
+![image](https://user-images.githubusercontent.com/54617201/162476715-c3f2aa2b-340c-4a19-9187-9d5df6557a42.png)
