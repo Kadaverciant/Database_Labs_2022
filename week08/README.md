@@ -39,3 +39,47 @@ after creating hash index for id:
 ![image](https://user-images.githubusercontent.com/54617201/162435326-28eb1cd0-981b-48cf-be64-acd51d218ebb.png)
 
 Conclusion: As we can see, after creating an index, cost and time decreased.
+
+# Task 2
+## 1st query
+```
+select f.film_id, f.title, f.rating 
+from film as f, category as c, film_category as fc, 
+(select distinct f.film_id
+from film as f 
+except (
+select distinct f.film_id 
+from film as f, inventory as i, rental as r
+where f.film_id = i.film_id and i.inventory_id = r.inventory_id)) as unrented 
+where f.film_id=unrented.film_id and (rating = 'R' or rating = 'PG-13') and 
+f.film_id=fc.film_id and fc.category_id = c.category_id and (c.name='Horror' or 
+															 c.name='Sci-Fi')
+```
+![image](https://user-images.githubusercontent.com/54617201/162475507-2e77f568-b783-4ac8-bf34-d6f93ce07daf.png)
+
+
+## 2nd query
+```
+select a.city, st.store_id, st.money, st.address_id  from 
+(
+select distinct a.address_id, c.city
+from address as a, city as c
+where a.city_id=c.city_id
+) as a join ( 
+	select s.store_id, s.money, st.address_id 
+	from
+	(
+		select s.store_id, sum(money) as money
+		from (
+		select staff_id, sum(amount) as money
+		from payment --, staff as s
+		where payment_date >=  
+			(select max(payment_date) from payment)- interval '1 month'
+		 group by staff_id
+		) as bill, staff as sf, store as s
+		where bill.staff_id = sf.staff_id and s.store_id = sf.store_id
+		group by s.store_id
+	) as s join store as st on s.store_id = st.store_id
+) as st on a.address_id = st.address_id
+```
+![image](https://user-images.githubusercontent.com/54617201/162475424-abb5e933-7195-47be-9abe-82c4405a93b0.png)
