@@ -51,7 +51,7 @@ con.commit()
 
 Picture:
 
-\![image](https://user-images.githubusercontent.com/54617201/163574325-847f6b0c-0dc8-4c63-bc3b-1b9c36add48b.png)
+![image](https://user-images.githubusercontent.com/54617201/163574325-847f6b0c-0dc8-4c63-bc3b-1b9c36add48b.png)
 
 # Task 2
 Function code:
