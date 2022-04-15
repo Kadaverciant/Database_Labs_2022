@@ -1,5 +1,6 @@
 # Task 1
-function:
+Function code:
+
 ```
 CREATE OR REPLACE FUNCTION public.ex1_retrieve_addresses_under_condition()
     RETURNS table (id integer, address text)
@@ -13,7 +14,8 @@ where (a.city_id <= 600) and (a.city_id >=400) and (a.address like '%11%')
 $$;
 ```
 
-Python code 
+Python code:
+
 ```
 import psycopg2
 import geopy
@@ -48,5 +50,6 @@ con.commit()
 ```
 
 Picture:
+
 ![image](https://user-images.githubusercontent.com/54617201/163573605-f5c2e673-a63f-42f9-8482-bc21ff90e6e1.png)
 
