@@ -53,4 +53,39 @@ Picture:
 
 \![image](https://user-images.githubusercontent.com/54617201/163574325-847f6b0c-0dc8-4c63-bc3b-1b9c36add48b.png)
 
+# Task 2
+Function code:
+```
+-- DROP FUNCTION ex2_paging(integer,integer)
 
+CREATE OR REPLACE FUNCTION public.ex2_paging( num_from int, num_to int )
+    RETURNS table (id integer, first_name character varying(45), last_name character varying(45), address_id smallint)    
+AS $$
+begin
+if num_from > num_to 
+then
+	raise exception 'illegal order';
+elseif num_from<0 or num_to<0 then
+	raise exception 'some arguments are negative';
+elseif num_from>600 or num_to>600 then
+	raise exception 'some arguments are more than 600';
+else
+	return query SELECT c.customer_id, c.first_name, c.last_name, c.address_id
+	from customer as c
+	order by c.address_id
+	limit num_to-num_from
+	offset num_from;
+end if;
+end;
+$$
+LANGUAGE 'plpgsql';
+```
+
+Example code:
+```
+select * from ex2_paging(20, 30)
+```
+
+Picture:
+
+![image](https://user-images.githubusercontent.com/54617201/163580227-b8fc7585-77e5-4a01-9691-cb22722fa8b4.png)
