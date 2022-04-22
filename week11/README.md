@@ -17,7 +17,7 @@ values (1, 'account 1', 1000, 'RUB'),
 	   (3, 'account 3', 1000, 'RUB');
 ```
 
-Now let's create transition, you can uncomment any savepoint, if you need to rollback:
+Now let's create transition, you can uncomment any save point if you need to rollback:
 
 ```
 set transaction isolation level read committed read write;
@@ -138,4 +138,76 @@ savepoint my_savepoint1;
 end;
 ```
 
+Accounts table would be:
+
 ![image](https://user-images.githubusercontent.com/54617201/164748398-1748cf45-7020-495b-8849-6b6ad32baeae.png)
+
+## 1.3
+
+Let's create new table Ledger:
+
+```
+create table ledger (
+	id int primary key,
+	fromID int,
+	toID int,
+	fee int,
+	amount int,
+	TransactionDateTime timestamp,
+	constraint fk_from foreign key(fromID) references accounts(id),
+	constraint fk_to foreign key(toID) references accounts(id)
+);
+```
+Then let's modify our transition:
+```
+set transaction isolation level read committed read write;
+begin;
+savepoint my_savepoint1;
+
+	update accounts
+	set credit = credit - 500
+	where id = 1;
+	
+	update accounts
+	set credit = credit + 500
+	where id = 3;
+	
+	insert into ledger (id, fromID, toID, fee, amount, TransactionDateTime) 
+	values (1,1,3,0,500, '2022-11-14');
+	
+	savepoint my_savepoint2;
+	
+	update accounts
+	set credit = credit - 700
+	where id = 2;
+	
+	update accounts
+	set credit = credit + 670
+	where id = 1;
+	
+	update accounts set credit = credit + 30 where id = 4;
+	insert into ledger (id, fromID, toID, fee, amount, TransactionDateTime) 
+	values (2,2,1,30,670, '2022-11-13');
+	
+	savepoint my_savepoint3;
+	
+	update accounts
+	set credit = credit - 100
+	where id = 2;
+	
+	update accounts
+	set credit = credit + 70
+	where id = 3;
+	
+	update accounts set credit = credit + 30 where id = 4;
+	insert into ledger (id, fromID, toID, fee, amount, TransactionDateTime) 
+	values (3,2,3,30,70, '2022-11-12');
+-- 	rollback to savepoint my_savepoint3;
+-- 	rollback to savepoint my_savepoint2;
+-- 	rollback to savepoint my_savepoint1;
+end;
+```
+
+Ledger table would be:
+
+![image](https://user-images.githubusercontent.com/54617201/164751980-c6cc2dec-6f53-4ccc-a239-d7abdd850a0c.png)
