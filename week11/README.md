@@ -214,8 +214,25 @@ Ledger table would be:
 
 # Task 2
 ## 2.1
+Lets's create everythin what we need:
+```
+create table account (
+    username varchar(45) primary key ,
+    fullname varchar(45),
+    balance int,
+    group_id int
+);
+
+insert into account (username, fullname, balance, group_id)
+values ('jones', 'Alice Jones', 82, 1),
+('bitdiddl', 'Ben Bitdiddle', 65, 1),
+('mike', 'Michael Dole', 73, 2),
+('alyssa', 'Alyssa P. Hacker', 79, 3),
+('bbrown', 'Bob Brown', 100, 3 );
+```
 ### For read commited
 1) Do both terminals show the same information? Explain the reason
+
 Answer: They would show different information since we use read commited isolation level, in which only commited difference will be applied to data base. So, T1 would see only 'jones', not 'ajones'.
 
 Terminal 1
@@ -238,6 +255,7 @@ select * from account;
 ```
 
 2) Explain the output form the second terminal:
+
 Answer: After step 2 Terminal 2 would wait until Terminal 1 would commit changes and Terminal 2 would consider information about balance after changes.
 
 Terminal 1
@@ -265,6 +283,8 @@ rollback;
 ```
 ### For repeatable read:
 1) Do both terminals show the same information? Explain the reason
+
 Answer: They would show different information since we use repeatable read isolation level, in which transactions only sees data committed before the transaction began
 2) Explain the output form the second terminal:
+
 Answer: ERROR:  could not serialize access due to concurrent update
