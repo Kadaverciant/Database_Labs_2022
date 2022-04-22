@@ -27,7 +27,7 @@ begin;
 	
 	update accounts
 	set credit = credit + 500
-	where id = 2;
+	where id = 3;
 	
 -- 	select * from accounts;
 	
