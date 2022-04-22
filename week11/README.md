@@ -216,7 +216,6 @@ Ledger table would be:
 ## 2.1
 ### For read commited
 1) Do both terminals show the same information? Explain the reason
-
 Answer: They would show different information since we use read commited isolation level, in which only commited difference will be applied to data base. So, T1 would see only 'jones', not 'ajones'.
 
 Terminal 1
@@ -239,7 +238,6 @@ select * from account;
 ```
 
 2) Explain the output form the second terminal:
-
 Answer: After step 2 Terminal 2 would wait until Terminal 1 would commit changes and Terminal 2 would consider information about balance after changes.
 
 Terminal 1
@@ -265,3 +263,8 @@ begin isolation level read committed;
     update account set balance = balance + 20 where username='ajones';
 rollback;
 ```
+### For repeatable read:
+1) Do both terminals show the same information? Explain the reason
+Answer: They would show different information since we use repeatable read isolation level, in which transactions only sees data committed before the transaction began
+2) Explain the output form the second terminal:
+Answer: ERROR:  could not serialize access due to concurrent update
