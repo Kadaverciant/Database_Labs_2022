@@ -285,6 +285,7 @@ rollback;
 1) Do both terminals show the same information? Explain the reason
 
 Answer: They would show different information since we use repeatable read isolation level, in which transactions only sees data committed before the transaction began
+
 2) Explain the output form the second terminal:
 
 Answer: ERROR:  could not serialize access due to concurrent update
