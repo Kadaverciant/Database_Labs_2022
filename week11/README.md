@@ -211,3 +211,46 @@ end;
 Ledger table would be:
 
 ![image](https://user-images.githubusercontent.com/54617201/164751980-c6cc2dec-6f53-4ccc-a239-d7abdd850a0c.png)
+
+# Task 2
+## 2.1
+### For read commited
+1) Do both terminals show the same information? Explain the reason
+
+Answer: They would show different information since we use read commited isolation level, in which only commited difference will be applied to data base. So, T1 would see only 'jones', not 'ajones'.
+
+Terminal 1
+```
+set transaction isolation level read committed read write;
+begin;
+    select * from account;
+commit;
+select * from account;
+```
+
+Terminal 2
+```
+begin isolation level read committed;
+    update account set username = 'ajones' where username = 'jones';
+
+    select * from account;
+rollback;
+select * from account;
+```
+
+2) Explain the output form the second terminal:
+
+Answer: After step 2 Terminal 2 would wait until Terminal 1 would commit changes and Terminal 2 would consider information about balance after changes.
+
+Terminal 1
+```
+update account set balance = balance + 10 where username='ajones';
+commit;
+```
+
+Terminal 2
+```
+begin isolation level read committed;
+    update account set balance = balance + 20 where username='ajones';
+rollback;
+```
