@@ -244,12 +244,23 @@ Answer: After step 2 Terminal 2 would wait until Terminal 1 would commit changes
 
 Terminal 1
 ```
+set transaction isolation level read committed read write;
+begin;
+    select * from account;
+commit;
+select * from account;
+
 update account set balance = balance + 10 where username='ajones';
 commit;
 ```
 
 Terminal 2
 ```
+begin isolation level read committed;
+    update account set username = 'ajones' where username = 'jones';
+    select * from account;
+commit;
+
 begin isolation level read committed;
     update account set balance = balance + 20 where username='ajones';
 rollback;
