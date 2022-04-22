@@ -14,7 +14,7 @@ values (1, 'account 1', 1000, 'RUB'),
 	   (3, 'account 3', 1000, 'RUB');
 ```
 
-Now let's create transition:
+Now let's create transition, you can uncomment any savepoint, if you need to rollback:
 
 ```
 set transaction isolation level read committed read write;
@@ -54,7 +54,9 @@ begin;
 	
 -- 	select * from accounts;
 	
-	rollback to savepoint my_savepoint1;
+-- 	rollback to savepoint my_savepoint3;
+-- 	rollback to savepoint my_savepoint2;
+-- 	rollback to savepoint my_savepoint1;
 end;
 ```
 
@@ -70,4 +72,64 @@ Now let's add new column:
 alter table accounts add column bankName varchar(45);
 update accounts set bankname = 'Sberbank' where id = 1 or id = 3;
 update accounts set bankname = 'Tinkoff' where id = 2;
+```
+
+Now let's add new row for collecting information about fee:
+```
+insert into accounts (id, name, credit, currency)
+values (4, 'account 4', 0, 'RUB');
+```
+
+In case if you are working in pgAdmin, you might need this:
+
+```
+update accounts set credit = 1000;
+update accounts set credit = 0 where id = 4;
+```
+
+Then according to task, our transition would be the following:
+```
+set transaction isolation level read committed read write;
+begin;
+savepoint my_savepoint1;
+
+	update accounts
+	set credit = credit - 500
+	where id = 1;
+	
+	update accounts
+	set credit = credit + 500
+	where id = 3;
+	
+-- 	select * from accounts;
+	
+	savepoint my_savepoint2;
+	
+	update accounts
+	set credit = credit - 700
+	where id = 2;
+	
+	update accounts
+	set credit = credit + 670
+	where id = 1;
+	
+	update accounts set credit = credit + 30 where id = 4;
+	
+-- 	select * from accounts;
+	
+	savepoint my_savepoint3;
+	update accounts
+	set credit = credit - 100
+	where id = 2;
+	
+	update accounts
+	set credit = credit + 70
+	where id = 3;
+	
+	update accounts set credit = credit + 30 where id = 4;
+	
+-- 	rollback to savepoint my_savepoint3;
+-- 	rollback to savepoint my_savepoint2;
+-- 	rollback to savepoint my_savepoint1;
+end;
 ```
