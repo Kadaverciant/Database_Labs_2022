@@ -1,3 +1,6 @@
+# Task 1
+
+## 1.1
 Let's create table:
 
 ```
@@ -66,6 +69,7 @@ In case if you are working in pgAdmin, you might need this:
 update accounts set credit = 1000;
 ```
 
+## Task 1.2
 Now let's add new column:
 
 ```
@@ -133,3 +137,5 @@ savepoint my_savepoint1;
 -- 	rollback to savepoint my_savepoint1;
 end;
 ```
+
+![image](https://user-images.githubusercontent.com/54617201/164748398-1748cf45-7020-495b-8849-6b6ad32baeae.png)
