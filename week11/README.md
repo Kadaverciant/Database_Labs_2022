@@ -231,61 +231,98 @@ values ('jones', 'Alice Jones', 82, 1),
 ('bbrown', 'Bob Brown', 100, 3 );
 ```
 ### For read commited
-1) Do both terminals show the same information? Explain the reason
-
-Answer: They would show different information since we use read commited isolation level, in which only commited difference will be applied to data base. So, T1 would see only 'jones', not 'ajones'.
-
 Terminal 1
 ```
-set transaction isolation level read committed read write;
-begin;
-    select * from account;
-commit;
-select * from account;
+begin isolation level read committed; -- step 1
+    select * from account; -- step 1
+    select * from account; -- step 3
+    select * from account; -- step 5.2
+    update account set balance = balance + 10 where fullname = 'Alice Jones'; -- step 7
+commit; -- step 9
 ```
 
 Terminal 2
 ```
-begin isolation level read committed;
-    update account set username = 'ajones' where username = 'jones';
-
-    select * from account;
-rollback;
-select * from account;
+begin isolation level read committed; -- step 2
+    update account set username = 'ajones' where fullname = 'Alice Jones'; -- step 2
+    select * from account; -- step 4
+commit; -- step 5.1
+select * from account; -- step 5.2
+begin isolation level read committed; -- step 6
+    update account set balance = balance + 20 where fullname = 'Alice Jones'; -- step 8
+rollback; -- step 10
 ```
+
+1) Do both terminals show the same information? Explain the reason
+
+Answer: They would show different information since we use read commited isolation level, in which only commited difference will be applied to data base. So, T1 would see only 'jones', not 'ajones'.
 
 2) Explain the output form the second terminal:
 
 Answer: After step 2 Terminal 2 would wait until Terminal 1 would commit changes and Terminal 2 would consider information about balance after changes.
 
+### For repeatable read:
 Terminal 1
 ```
-set transaction isolation level read committed read write;
-begin;
-    select * from account;
-commit;
-select * from account;
-
-update account set balance = balance + 10 where username='ajones';
-commit;
+begin isolation level repeatable read; -- step 1
+    select * from account; -- step 1
+    select * from account; -- step 3
+    select * from account; -- step 5.2
+    update account set balance = balance + 10 where fullname = 'Alice Jones'; -- step 7
+commit; -- step 9
 ```
 
 Terminal 2
 ```
-begin isolation level read committed;
-    update account set username = 'ajones' where username = 'jones';
-    select * from account;
-commit;
-
-begin isolation level read committed;
-    update account set balance = balance + 20 where username='ajones';
-rollback;
+begin isolation level repeatable read; -- step 2
+    update account set username = 'ajones' where fullname = 'Alice Jones'; -- step 2
+    select * from account; -- step 4
+commit; -- step 5.1
+select * from account; -- step 5.2
+begin isolation level repeatable read; -- step 6
+    update account set balance = balance + 20 where fullname = 'Alice Jones'; -- step 8
+rollback; -- step 10
 ```
-### For repeatable read:
 1) Do both terminals show the same information? Explain the reason
 
-Answer: They would show different information since we use repeatable read isolation level, in which transactions only sees data committed before the transaction began
+Answer: They would show different information since we use repeatable read isolation level, in which transactions only sees data committed before the transaction began. So in Terminal 1 we won't see any changes.
 
 2) Explain the output form the second terminal:
 
-Answer: ERROR:  could not serialize access due to concurrent update
+Answer: ERROR:  could not serialize access due to concurrent update - which indicates that the UPDATE statement was queued behind another UPDATE statement on the same row.
+
+## 2.2
+### For read commited
+
+After commiting T1 and T2, Mike balance would be increased by 15, and Bob group would be changed to 2.
+Since all updates happened befor commits, Bob balance won't be increased. In other words, if update in Terminal 2 would be commited befor update in Terminal 1, then Bob's balance would be changed.
+
+ username |     fullname     | balance | group_id 
+----------+------------------+---------+----------
+ bitdiddl | Ben Bitdiddle    |      65 |        1
+ alyssa   | Alyssa P. Hacker |      79 |        3
+ ajones   | Alice Jones      |      82 |        1
+ bbrown   | Bob Brown        |     100 |        2
+ mike     | Michael Dole     |      88 |        2
+
+Terminal 1:
+```
+begin isolation level read committed; -- step 1
+    select * from account where group_id = 2; -- step 2
+    select * from account where group_id = 2; -- step 4
+    update account set balance = balance +15 where group_id = 2; -- step 5
+commit; -- step 6
+```
+
+Terminal 2:
+```
+begin isolation level read committed; -- step 1
+    update account set group_id = 2 where fullname = 'Bob Brown' -- step 3
+commit; -- step 6
+```
+### For repeatable read:
+
+Situation would be the same as for read commited. 
+
+After commiting T1 and T2, Mike balance would be increased by 15, and Bob group would be changed to 2.
+However, even if T2 would be commited before update in T1, Bob balance won't be increased.
