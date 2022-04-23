@@ -297,20 +297,15 @@ Answer: ERROR:  could not serialize access due to concurrent update - which indi
 After commiting T1 and T2, Mike balance would be increased by 15, and Bob group would be changed to 2.
 Since all updates happened befor commits, Bob balance won't be increased. In other words, if update in Terminal 2 would be commited befor update in Terminal 1, then Bob's balance would be changed.
 
+```
  username |     fullname     | balance | group_id 
- 
-----------+------------------+---------+----------
-
+----------+------------------+---------+---------
  bitdiddl | Ben Bitdiddle    |      65 |        1
- 
  alyssa   | Alyssa P. Hacker |      79 |        3
- 
  ajones   | Alice Jones      |      82 |        1
- 
  bbrown   | Bob Brown        |     100 |        2
- 
  mike     | Michael Dole     |      88 |        2
- 
+```
 
 Terminal 1:
 ```
