@@ -328,3 +328,19 @@ Situation would be the same as for read commited.
 
 After commiting T1 and T2, Mike balance would be increased by 15, and Bob group would be changed to 2.
 However, even if T2 would be commited before update in T1, Bob balance won't be increased.
+
+Terminal 1:
+```
+begin isolation level repeatable read; -- step 1
+    select * from account where group_id = 2; -- step 2
+    select * from account where group_id = 2; -- step 4
+    update account set balance = balance +15 where group_id = 2; -- step 5
+commit; -- step 6
+```
+
+Terminal 2:
+```
+begin isolation level repeatable read; -- step 1
+    update account set group_id = 2 where fullname = 'Bob Brown' -- step 3
+commit; -- step 6
+```
