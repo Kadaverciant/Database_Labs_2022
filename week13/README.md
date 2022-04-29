@@ -29,6 +29,12 @@ create (kn:Fighter {name:"Khabib Nurmagomedov",weight:"155"}),
 
 ## 1.1
 ```
-match (p:Fighter)-[:beats]-(pp) where p.weight="155" or p.weight="170" or p.weight="185" return distinct p
+match (p:Fighter)-[:beats]-(pp:Fighter) where p.weight="155" or p.weight="170" or p.weight="185" return distinct p
 ```
 ![image](https://user-images.githubusercontent.com/54617201/165946982-48483e83-e33c-491a-98bd-d92e76661370.png)
+
+## 1.2
+```
+match (p1:Fighter)-[:beats]->(p2:Fighter)-[:beats]->(p1) return p1, p2
+```
+![image](https://user-images.githubusercontent.com/54617201/165948689-85b2da14-967b-411a-935e-7eeb059d9ec8.png)
