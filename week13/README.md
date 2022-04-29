@@ -38,3 +38,9 @@ match (p:Fighter)-[:beats]-(pp:Fighter) where p.weight="155" or p.weight="170" o
 match (p1:Fighter)-[:beats]->(p2:Fighter)-[:beats]->(p1) return p1, p2
 ```
 ![image](https://user-images.githubusercontent.com/54617201/165948689-85b2da14-967b-411a-935e-7eeb059d9ec8.png)
+
+## 1.3
+```
+match (kn:Fighter)-[:beats]->(p)-[:beats*1..]->(p1) return distinct p1
+```
+![image](https://user-images.githubusercontent.com/54617201/165950215-730e7d6a-089e-4c7c-b857-0593c85f83ea.png)
