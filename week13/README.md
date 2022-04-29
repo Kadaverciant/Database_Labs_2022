@@ -50,3 +50,9 @@ match (kn:Fighter)-[:beats]->(p)-[:beats*1..]->(p1) return distinct p1
 match (p) where not ()-[:beats]->(p) or not (p)-[:beats]->() return p
 ```
 ![image](https://user-images.githubusercontent.com/54617201/165954581-ef50aef3-143f-457f-b0ad-56f8f9ac31ac.png)
+
+## 1.5
+```
+match (p) return p.name as name, p.weight as weight, size((p)-[:beats]->()) as wins, size(S()-[:beats]->(p)) as losses
+```
+![image](https://user-images.githubusercontent.com/54617201/165956613-0492a333-c2a9-49bb-a9fd-c7cfcafb7f34.png)
