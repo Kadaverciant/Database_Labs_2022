@@ -56,3 +56,10 @@ match (p) where not ()-[:beats]->(p) or not (p)-[:beats]->() return p
 match (p) return p.name as name, p.weight as weight, size((p)-[:beats]->()) as wins, size(S()-[:beats]->(p)) as losses
 ```
 ![image](https://user-images.githubusercontent.com/54617201/165956613-0492a333-c2a9-49bb-a9fd-c7cfcafb7f34.png)
+
+or
+
+```
+match (p) return p.name as name, p.weight as weight, [size((p)-[:beats]->()) , size(()-[:beats]->(p))] as record
+```
+![image](https://user-images.githubusercontent.com/54617201/165960762-a5e3b411-738d-403b-8fa2-7639914ed20a.png)
