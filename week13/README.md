@@ -44,3 +44,9 @@ match (p1:Fighter)-[:beats]->(p2:Fighter)-[:beats]->(p1) return p1, p2
 match (kn:Fighter)-[:beats]->(p)-[:beats*1..]->(p1) return distinct p1
 ```
 ![image](https://user-images.githubusercontent.com/54617201/165950215-730e7d6a-089e-4c7c-b857-0593c85f83ea.png)
+
+## 1.4
+```
+match (p) where not ()-[:beats]->(p) or not (p)-[:beats]->() return p
+```
+![image](https://user-images.githubusercontent.com/54617201/165954581-ef50aef3-143f-457f-b0ad-56f8f9ac31ac.png)
